@@ -1,31 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-
-
-const getString = async() => {
-  let res = null;
-  await fetch("http://localhost:3000/")
-  .then((response) => {
-      return response.json();
-  })
-  .then((data) => {
-    console.log(data)
-      res = data
-  })
-  return res;
-}
+import { useState, useEffect } from 'react'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [message, setMessage] = useState("")
+
+  useEffect( () => {
+    fetch("http://localhost:3000/")
+    .then((response) => response.json())
+    .then((data) => setMessage(data.message))
+  }, [])
 
   return (
     <>
       <div>
-        <h1>{getString()}</h1>
+        <h1>{message}</h1>
       </div>
     </>
   )
